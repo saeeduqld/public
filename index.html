@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_1b3f6435a14954fc8a5e0307be782632 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_1b3f6435a14954fc8a5e0307be782632" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_1b3f6435a14954fc8a5e0307be782632 = L.map(
+                "map_1b3f6435a14954fc8a5e0307be782632",
+                {
+                    center: [20.0, 0.0],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 2,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_2a23389c4749d4c01a29e205162b19dc = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+                tile_layer_2a23389c4749d4c01a29e205162b19dc.addTo(map_1b3f6435a14954fc8a5e0307be782632);
+    
+            var marker_e0f5a594b223759e3d2b806ad6fece03 = L.marker(
+                [35.6997, 51.3381],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_79b478e5e020191a5e5ddb5d98b3a395 = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_e0f5a594b223759e3d2b806ad6fece03.setIcon(custom_icon_79b478e5e020191a5e5ddb5d98b3a395);
+        
+    
+        var popup_bb94328b295bb06f681fbf80b2884f1c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0b229e4cca66a9e30d856492f9f5be89 = $(`<div id="html_0b229e4cca66a9e30d856492f9f5be89" style="width: 100.0%; height: 100.0%;">Sharif University of Technology</div>`)[0];
+                popup_bb94328b295bb06f681fbf80b2884f1c.setContent(html_0b229e4cca66a9e30d856492f9f5be89);
+            
+        
+
+        marker_e0f5a594b223759e3d2b806ad6fece03.bindPopup(popup_bb94328b295bb06f681fbf80b2884f1c)
+        ;
+
+        
+    
+    
+            var marker_50585d4d7777dbdc9e37d7b4b9812358 = L.marker(
+                [45.5048, -73.5772],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_9d89ad82e0b3c7d6a5b9d977e7e3f738 = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_50585d4d7777dbdc9e37d7b4b9812358.setIcon(custom_icon_9d89ad82e0b3c7d6a5b9d977e7e3f738);
+        
+    
+        var popup_3f52a0de76becbda75a9691a2ca41413 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_8089b1ffe44341c3e8e556a55a5112f1 = $(`<div id="html_8089b1ffe44341c3e8e556a55a5112f1" style="width: 100.0%; height: 100.0%;">McGill University</div>`)[0];
+                popup_3f52a0de76becbda75a9691a2ca41413.setContent(html_8089b1ffe44341c3e8e556a55a5112f1);
+            
+        
+
+        marker_50585d4d7777dbdc9e37d7b4b9812358.bindPopup(popup_3f52a0de76becbda75a9691a2ca41413)
+        ;
+
+        
+    
+    
+            var marker_abf6d21c0347db3a4d15615e28155d47 = L.marker(
+                [51.5898, -0.2295],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_4fe1873f180b68499d68897b8da22a0b = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_abf6d21c0347db3a4d15615e28155d47.setIcon(custom_icon_4fe1873f180b68499d68897b8da22a0b);
+        
+    
+        var popup_0ded0ae8d1b6bdee79cdd4de0a420ed0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_4c38b78a711d1fef9cdbe1ce87558bfc = $(`<div id="html_4c38b78a711d1fef9cdbe1ce87558bfc" style="width: 100.0%; height: 100.0%;">Middlesex University London</div>`)[0];
+                popup_0ded0ae8d1b6bdee79cdd4de0a420ed0.setContent(html_4c38b78a711d1fef9cdbe1ce87558bfc);
+            
+        
+
+        marker_abf6d21c0347db3a4d15615e28155d47.bindPopup(popup_0ded0ae8d1b6bdee79cdd4de0a420ed0)
+        ;
+
+        
+    
+    
+            var marker_dfc91174e016e0553544d06df95aa068 = L.marker(
+                [-27.4954, 153.012],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_0aa750f1e65bb44ff5d2c0f1ea86a0a4 = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_dfc91174e016e0553544d06df95aa068.setIcon(custom_icon_0aa750f1e65bb44ff5d2c0f1ea86a0a4);
+        
+    
+        var popup_e8a6f0c9026972c94a5d012ebc906b0f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_cfc19b84d58893a4c941c60fe03c61ca = $(`<div id="html_cfc19b84d58893a4c941c60fe03c61ca" style="width: 100.0%; height: 100.0%;">The University of Queensland</div>`)[0];
+                popup_e8a6f0c9026972c94a5d012ebc906b0f.setContent(html_cfc19b84d58893a4c941c60fe03c61ca);
+            
+        
+
+        marker_dfc91174e016e0553544d06df95aa068.bindPopup(popup_e8a6f0c9026972c94a5d012ebc906b0f)
+        ;
+
+        
+    
+    
+            var marker_832afc0902d0c2380bf62a9970b5e8f5 = L.marker(
+                [-27.4954, 153.012],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_92f0b29a3de9ad08055bd61258c435c5 = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_832afc0902d0c2380bf62a9970b5e8f5.setIcon(custom_icon_92f0b29a3de9ad08055bd61258c435c5);
+        
+    
+        var popup_9d3880ef8b14cc6a84f44b1a7af15b05 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_332e804748dfc78d981defb16fbc393f = $(`<div id="html_332e804748dfc78d981defb16fbc393f" style="width: 100.0%; height: 100.0%;">The University of Queensland</div>`)[0];
+                popup_9d3880ef8b14cc6a84f44b1a7af15b05.setContent(html_332e804748dfc78d981defb16fbc393f);
+            
+        
+
+        marker_832afc0902d0c2380bf62a9970b5e8f5.bindPopup(popup_9d3880ef8b14cc6a84f44b1a7af15b05)
+        ;
+
+        
+    
+    
+            var marker_29a7a5cd670de3a42b190e9176db0a23 = L.marker(
+                [-35.2812, 149.1205],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_8aa27a59d650c3184b4309bbb5307cc2 = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_29a7a5cd670de3a42b190e9176db0a23.setIcon(custom_icon_8aa27a59d650c3184b4309bbb5307cc2);
+        
+    
+        var popup_f7462b4d081d9ca850baec9cbf7e4d47 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9d18b71049da1f13a3b385fe7897387e = $(`<div id="html_9d18b71049da1f13a3b385fe7897387e" style="width: 100.0%; height: 100.0%;">Australian National University</div>`)[0];
+                popup_f7462b4d081d9ca850baec9cbf7e4d47.setContent(html_9d18b71049da1f13a3b385fe7897387e);
+            
+        
+
+        marker_29a7a5cd670de3a42b190e9176db0a23.bindPopup(popup_f7462b4d081d9ca850baec9cbf7e4d47)
+        ;
+
+        
+    
+    
+            var marker_29fb1c2188916c9b82f61a8c9ce89b58 = L.marker(
+                [-37.907803, 145.133957],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_57559b29b881c18419c27713d8855d3e = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_29fb1c2188916c9b82f61a8c9ce89b58.setIcon(custom_icon_57559b29b881c18419c27713d8855d3e);
+        
+    
+        var popup_1bf4efcf49c402f213d0d977d9be3cf2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_1194bbc396a05a183a89aa40b7df9793 = $(`<div id="html_1194bbc396a05a183a89aa40b7df9793" style="width: 100.0%; height: 100.0%;">Monash University</div>`)[0];
+                popup_1bf4efcf49c402f213d0d977d9be3cf2.setContent(html_1194bbc396a05a183a89aa40b7df9793);
+            
+        
+
+        marker_29fb1c2188916c9b82f61a8c9ce89b58.bindPopup(popup_1bf4efcf49c402f213d0d977d9be3cf2)
+        ;
+
+        
+    
+    
+            var marker_3d18e00bd702ef6eeab8257616d6cf84 = L.marker(
+                [-37.7963, 144.9614],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_c6d47abe4b1abfdc818b4d2b551677bd = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_3d18e00bd702ef6eeab8257616d6cf84.setIcon(custom_icon_c6d47abe4b1abfdc818b4d2b551677bd);
+        
+    
+        var popup_c4416bf4dda3f90b919a155ac398f909 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d5c5a65c1faaf45e2ad3ad84d4c44ac6 = $(`<div id="html_d5c5a65c1faaf45e2ad3ad84d4c44ac6" style="width: 100.0%; height: 100.0%;">The University of Melbourne</div>`)[0];
+                popup_c4416bf4dda3f90b919a155ac398f909.setContent(html_d5c5a65c1faaf45e2ad3ad84d4c44ac6);
+            
+        
+
+        marker_3d18e00bd702ef6eeab8257616d6cf84.bindPopup(popup_c4416bf4dda3f90b919a155ac398f909)
+        ;
+
+        
+    
+    
+            var marker_0b30deaa447aaad2671c6f38263db4ae = L.marker(
+                [-27.4954, 153.012],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_50e779be1f3945f4618bb59e7fac3af1 = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_0b30deaa447aaad2671c6f38263db4ae.setIcon(custom_icon_50e779be1f3945f4618bb59e7fac3af1);
+        
+    
+        var popup_87ac0e7bd35c29efbeee927ef05f08e8 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_31617c14f41cef72eaa06675cf6d918e = $(`<div id="html_31617c14f41cef72eaa06675cf6d918e" style="width: 100.0%; height: 100.0%;">The University of Queensland</div>`)[0];
+                popup_87ac0e7bd35c29efbeee927ef05f08e8.setContent(html_31617c14f41cef72eaa06675cf6d918e);
+            
+        
+
+        marker_0b30deaa447aaad2671c6f38263db4ae.bindPopup(popup_87ac0e7bd35c29efbeee927ef05f08e8)
+        ;
+
+        
+    
+    
+            var marker_819ba5822deee832754a6c1389ea7ce9 = L.marker(
+                [33.7528, -84.3861],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_44745c81d1d3808f241b927c852c5a03 = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_819ba5822deee832754a6c1389ea7ce9.setIcon(custom_icon_44745c81d1d3808f241b927c852c5a03);
+        
+    
+        var popup_d0325980873c0a5e7cfd6a072140b251 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c62495501e87f6e3032d54a0b3ae3ec5 = $(`<div id="html_c62495501e87f6e3032d54a0b3ae3ec5" style="width: 100.0%; height: 100.0%;">Georgia State University</div>`)[0];
+                popup_d0325980873c0a5e7cfd6a072140b251.setContent(html_c62495501e87f6e3032d54a0b3ae3ec5);
+            
+        
+
+        marker_819ba5822deee832754a6c1389ea7ce9.bindPopup(popup_d0325980873c0a5e7cfd6a072140b251)
+        ;
+
+        
+    
+    
+            var marker_c432574f5eb1602a2348c17f15c9dff1 = L.marker(
+                [49.2667, -123.25],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_cecf7602a26965f7aaa7526a1b45d336 = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_c432574f5eb1602a2348c17f15c9dff1.setIcon(custom_icon_cecf7602a26965f7aaa7526a1b45d336);
+        
+    
+        var popup_579b97de18879c7ddfb0cffc2474f4c3 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ee1fc901498d3b55ca2addcc4dab1fed = $(`<div id="html_ee1fc901498d3b55ca2addcc4dab1fed" style="width: 100.0%; height: 100.0%;">The University of British Columbia</div>`)[0];
+                popup_579b97de18879c7ddfb0cffc2474f4c3.setContent(html_ee1fc901498d3b55ca2addcc4dab1fed);
+            
+        
+
+        marker_c432574f5eb1602a2348c17f15c9dff1.bindPopup(popup_579b97de18879c7ddfb0cffc2474f4c3)
+        ;
+
+        
+    
+    
+            var marker_e0f599d41de74cc5b92b38ceb4d15ea7 = L.marker(
+                [-27.4954, 153.012],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_8b69efe7a1745a00294d0099aef091ce = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_e0f599d41de74cc5b92b38ceb4d15ea7.setIcon(custom_icon_8b69efe7a1745a00294d0099aef091ce);
+        
+    
+        var popup_6c562e85a2cbcb3d315ddd2d7dde077a = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a65b6a849bbed2e72bfd29dad5122b5d = $(`<div id="html_a65b6a849bbed2e72bfd29dad5122b5d" style="width: 100.0%; height: 100.0%;">The University of Queensland</div>`)[0];
+                popup_6c562e85a2cbcb3d315ddd2d7dde077a.setContent(html_a65b6a849bbed2e72bfd29dad5122b5d);
+            
+        
+
+        marker_e0f599d41de74cc5b92b38ceb4d15ea7.bindPopup(popup_6c562e85a2cbcb3d315ddd2d7dde077a)
+        ;
+
+        
+    
+    
+            var marker_eb0212eb604d679d19bbecad07a305fe = L.marker(
+                [52.3336, 4.8604],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_f88641ec2b84162b92162e5e7077d53c = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_eb0212eb604d679d19bbecad07a305fe.setIcon(custom_icon_f88641ec2b84162b92162e5e7077d53c);
+        
+    
+        var popup_5a1d0bf20401ecf1886a6ad69e20e3df = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a4c9026bd319466decaf73f8d22cc008 = $(`<div id="html_a4c9026bd319466decaf73f8d22cc008" style="width: 100.0%; height: 100.0%;">Vrije Universiteit Amsterdam</div>`)[0];
+                popup_5a1d0bf20401ecf1886a6ad69e20e3df.setContent(html_a4c9026bd319466decaf73f8d22cc008);
+            
+        
+
+        marker_eb0212eb604d679d19bbecad07a305fe.bindPopup(popup_5a1d0bf20401ecf1886a6ad69e20e3df)
+        ;
+
+        
+    
+    
+            var marker_11722833ba66875f80bc6be765b4b622 = L.marker(
+                [52.3822, -1.5619],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_e1a03237c107a2528ac084ca399263bd = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_11722833ba66875f80bc6be765b4b622.setIcon(custom_icon_e1a03237c107a2528ac084ca399263bd);
+        
+    
+        var popup_5103123384dbcfb0f13b7f5a0c2115ad = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_cb6c0870d6205c6b7a68133fc1d5cd89 = $(`<div id="html_cb6c0870d6205c6b7a68133fc1d5cd89" style="width: 100.0%; height: 100.0%;">Warwick Business School</div>`)[0];
+                popup_5103123384dbcfb0f13b7f5a0c2115ad.setContent(html_cb6c0870d6205c6b7a68133fc1d5cd89);
+            
+        
+
+        marker_11722833ba66875f80bc6be765b4b622.bindPopup(popup_5103123384dbcfb0f13b7f5a0c2115ad)
+        ;
+
+        
+    
+    
+            var marker_58576a88b057789137227ca1a1bc93b3 = L.marker(
+                [52.4864, -1.8904],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_d09ed4a1a7d4c0315df09f6515c85355 = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_58576a88b057789137227ca1a1bc93b3.setIcon(custom_icon_d09ed4a1a7d4c0315df09f6515c85355);
+        
+    
+        var popup_b8e4853b77a6a5fb4aee550293cef944 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ba5896a51c616209ce5fb12b9222faef = $(`<div id="html_ba5896a51c616209ce5fb12b9222faef" style="width: 100.0%; height: 100.0%;">Aston Business School</div>`)[0];
+                popup_b8e4853b77a6a5fb4aee550293cef944.setContent(html_ba5896a51c616209ce5fb12b9222faef);
+            
+        
+
+        marker_58576a88b057789137227ca1a1bc93b3.bindPopup(popup_b8e4853b77a6a5fb4aee550293cef944)
+        ;
+
+        
+    
+    
+            var marker_b71173e513c6836fdfbf58870f6725bf = L.marker(
+                [51.9153, 4.5251],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_650c000166f5e1281d24358ffb5d2c8f = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_b71173e513c6836fdfbf58870f6725bf.setIcon(custom_icon_650c000166f5e1281d24358ffb5d2c8f);
+        
+    
+        var popup_96ba4c9200acacf86b8a28a617a1a284 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_68d60a69396155d7291e007d9b8e9290 = $(`<div id="html_68d60a69396155d7291e007d9b8e9290" style="width: 100.0%; height: 100.0%;">Erasmus University</div>`)[0];
+                popup_96ba4c9200acacf86b8a28a617a1a284.setContent(html_68d60a69396155d7291e007d9b8e9290);
+            
+        
+
+        marker_b71173e513c6836fdfbf58870f6725bf.bindPopup(popup_96ba4c9200acacf86b8a28a617a1a284)
+        ;
+
+        
+    
+    
+            var marker_186a8910fc0549b90cd24cf6a67c2c49 = L.marker(
+                [-36.8523, 174.7691],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_4dd0485efaa83eb6be84c522489f6d3b = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_186a8910fc0549b90cd24cf6a67c2c49.setIcon(custom_icon_4dd0485efaa83eb6be84c522489f6d3b);
+        
+    
+        var popup_1826cdb3ba9f441f35828479dd88ddab = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a1fd97af76ca0e726563f92ef38b0c44 = $(`<div id="html_a1fd97af76ca0e726563f92ef38b0c44" style="width: 100.0%; height: 100.0%;">The University of Auckland</div>`)[0];
+                popup_1826cdb3ba9f441f35828479dd88ddab.setContent(html_a1fd97af76ca0e726563f92ef38b0c44);
+            
+        
+
+        marker_186a8910fc0549b90cd24cf6a67c2c49.bindPopup(popup_1826cdb3ba9f441f35828479dd88ddab)
+        ;
+
+        
+    
+    
+            var marker_bfa7ea51cdf1c1633a0f09928ab92a3b = L.marker(
+                [29.59, -98.62],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_6a1ed1f78b2cf591f6e789baa98e473b = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_bfa7ea51cdf1c1633a0f09928ab92a3b.setIcon(custom_icon_6a1ed1f78b2cf591f6e789baa98e473b);
+        
+    
+        var popup_af9b33234fcf2783533ef700f6e96b0c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_65efd1fc42f6da9ed80b05c53c62b672 = $(`<div id="html_65efd1fc42f6da9ed80b05c53c62b672" style="width: 100.0%; height: 100.0%;">The University of Texas at San Antonio</div>`)[0];
+                popup_af9b33234fcf2783533ef700f6e96b0c.setContent(html_65efd1fc42f6da9ed80b05c53c62b672);
+            
+        
+
+        marker_bfa7ea51cdf1c1633a0f09928ab92a3b.bindPopup(popup_af9b33234fcf2783533ef700f6e96b0c)
+        ;
+
+        
+    
+    
+            var marker_a2277f29339650c418593ca78b3a8a45 = L.marker(
+                [52.379414, -1.561904],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_9251116981806ddf0fe490cbb316897e = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_a2277f29339650c418593ca78b3a8a45.setIcon(custom_icon_9251116981806ddf0fe490cbb316897e);
+        
+    
+        var popup_dc4efa2427a36948ce7579e556fb81aa = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b524ca0205eac2d969d8ab2b0d6caf18 = $(`<div id="html_b524ca0205eac2d969d8ab2b0d6caf18" style="width: 100.0%; height: 100.0%;">University of Warwick</div>`)[0];
+                popup_dc4efa2427a36948ce7579e556fb81aa.setContent(html_b524ca0205eac2d969d8ab2b0d6caf18);
+            
+        
+
+        marker_a2277f29339650c418593ca78b3a8a45.bindPopup(popup_dc4efa2427a36948ce7579e556fb81aa)
+        ;
+
+        
+    
+    
+            var marker_8847b5ff366a8376fbf14639e5f00362 = L.marker(
+                [-33.9167, 151.2333],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_ecb2039ffe5bd3c70d7a8ce61cdd8cfa = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_8847b5ff366a8376fbf14639e5f00362.setIcon(custom_icon_ecb2039ffe5bd3c70d7a8ce61cdd8cfa);
+        
+    
+        var popup_18c6fdc3fc962ed999def08063fe01f0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_143ab4e80886043d2d6a634d3ee3fae7 = $(`<div id="html_143ab4e80886043d2d6a634d3ee3fae7" style="width: 100.0%; height: 100.0%;">University of New South Wales</div>`)[0];
+                popup_18c6fdc3fc962ed999def08063fe01f0.setContent(html_143ab4e80886043d2d6a634d3ee3fae7);
+            
+        
+
+        marker_8847b5ff366a8376fbf14639e5f00362.bindPopup(popup_18c6fdc3fc962ed999def08063fe01f0)
+        ;
+
+        
+    
+    
+            var marker_57c6a0de94b88dca1133ce15a716de88 = L.marker(
+                [1.290475, 103.77269],
+                {}
+            ).addTo(map_1b3f6435a14954fc8a5e0307be782632);
+        
+    
+        var custom_icon_16289c5500c533955f662e038e9968ea = L.icon({"iconSize": [50, 50], "iconUrl": "data:image/jpeg;base64,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"});
+        marker_57c6a0de94b88dca1133ce15a716de88.setIcon(custom_icon_16289c5500c533955f662e038e9968ea);
+        
+    
+        var popup_6cabc182bccd01673e2e975fda20ee41 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_198397bcee2d5d00aaccfce3ce1b9c06 = $(`<div id="html_198397bcee2d5d00aaccfce3ce1b9c06" style="width: 100.0%; height: 100.0%;">National University of Singapore</div>`)[0];
+                popup_6cabc182bccd01673e2e975fda20ee41.setContent(html_198397bcee2d5d00aaccfce3ce1b9c06);
+            
+        
+
+        marker_57c6a0de94b88dca1133ce15a716de88.bindPopup(popup_6cabc182bccd01673e2e975fda20ee41)
+        ;
+
+        
+    
+</script>
+</html>
