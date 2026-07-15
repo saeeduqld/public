@@ -24,7 +24,7 @@
 <script>
 (()=>{
 const canvas=document.getElementById('game'),arena=document.getElementById('arena'),ctx=canvas.getContext('2d'),overlay=document.getElementById('overlay'),headline=document.getElementById('headline'),eyebrow=document.getElementById('eyebrow'),start=document.getElementById('start'),pause=document.getElementById('pause'),soundBtn=document.getElementById('sound'),youEl=document.getElementById('youScore'),cpuEl=document.getElementById('cpuScore');
-const settings={easy:{ai:310,error:72,ball:340},medium:{ai:430,error:34,ball:540},hard:{ai:565,error:10,ball:760}};
+const settings={easy:{ai:310,error:72,ball:270},medium:{ai:430,error:34,ball:430},hard:{ai:565,error:10,ball:610}};
 let level='medium',state='ready',score={you:0,cpu:0},sound=true,w=0,h=0,last=0;
 const e={py:.5,ay:.5,bx:.5,by:.5,vx:0,vy:0,up:false,down:false,touch:0,target:.5,trail:[]};
 function beep(freq,d=.045){if(!sound)return;try{const A=window.AudioContext||window.webkitAudioContext,a=new A,o=a.createOscillator(),g=a.createGain();o.type='square';o.frequency.value=freq;g.gain.setValueAtTime(.045,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+d);o.connect(g).connect(a.destination);o.start();o.stop(a.currentTime+d);o.onended=()=>a.close()}catch{}}
