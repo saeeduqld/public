@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src data:; base-uri 'none'; form-action 'none'">
+  <title>AI Friction | Research Chatbot Lab</title>
+  <style>
+    :root{color-scheme:light;--bg:#f4f5f8;--ink:#172031;--muted:#5c6878;--border:#dbe0e9;--navy:#152a48;--accent:#1766bc;--paper:#fff;--low:#f0f5fc;--mint:#e7f4ee;--red:#9b3030;--radius:13px}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+    header{background:var(--navy);color:white;padding:24px 26px 20px}header .wrap{max-width:1180px;margin:auto}header h1{font-size:24px;letter-spacing:-.5px;margin:0 0 5px}header p{margin:0;color:#dce7f7;font-size:14px}
+    main{max-width:1180px;margin:auto;padding:20px 20px 55px}.card{background:var(--paper);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 3px 12px rgba(19,33,53,.04)}.panel{padding:18px}.card+.card{margin-top:14px}
+    .sectionhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.sectionhead h2{margin:0;font-size:17px;letter-spacing:-.2px}
+    .pill{font-size:11px;white-space:nowrap;color:#48627c;background:#edf3f9;border-radius:20px;padding:4px 8px}
+    .settings{display:grid;grid-template-columns:1.7fr 1.2fr 0.8fr;gap:12px}.control{min-width:0}label{display:block;font-size:13px;font-weight:650;margin-bottom:5px}input,textarea{width:100%;font:inherit;border:1px solid #c7d0dc;border-radius:8px;padding:9px 11px;background:white;color:var(--ink)}input:focus,textarea:focus{outline:2px solid rgba(23,102,188,.18);border-color:var(--accent)}textarea{resize:vertical;min-height:80px}input[type=range]{padding:0;accent-color:var(--accent)}.helper{font-size:12px;color:var(--muted);margin:5px 0 0}
+    details{border-top:1px solid var(--border);margin-top:14px;padding-top:12px}summary{font-weight:650;cursor:pointer}details .control{margin-top:12px} .columns{display:grid;grid-template-columns:1fr 1fr;gap:14px} .chatcard{display:flex;flex-direction:column;min-height:460px;overflow:hidden}.chathead{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 16px;border-bottom:1px solid var(--border)}.chathead h3{margin:0;font-size:17px}.chathead small{font-size:12px;color:var(--muted)}.chats{flex:1;padding:15px;min-height:245px;max-height:490px;overflow-y:auto;display:flex;flex-direction:column;gap:11px}.bubble{padding:11px 13px;border-radius:12px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;font-size:14px;max-width:91%}.bubble.user{background:var(--low);align-self:flex-end;border-bottom-right-radius:4px}.bubble.assistant{background:#f4f5f7;align-self:flex-start;border-bottom-left-radius:4px}.who{font-size:11px;letter-spacing:.2px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:4px}.empty{color:#778499;text-align:center;margin:auto;max-width:280px;font-size:13px}.composer{border-top:1px solid var(--border);padding:14px}.composer textarea{min-height:74px}.statusline{font-size:12px;color:var(--muted);padding:0 14px 11px;min-height:29px}.statusline.error{color:var(--red)}
+    button{font:inherit;cursor:pointer;border:1px solid #bfcad9;border-radius:9px;background:white;color:var(--navy);font-weight:650;padding:9px 14px}button:hover:not(:disabled){background:#f0f5fb}button:disabled{cursor:not-allowed;opacity:.56}button.primary{background:var(--accent);border-color:var(--accent);color:white}button.primary:hover:not(:disabled){background:#10599f}.buttonrow{display:flex;flex-wrap:wrap;gap:9px;align-items:center}.notice{border:1px solid #d6dfec;background:#f1f6fd;border-radius:10px;padding:12px 14px;color:#384c62;font-size:13px;margin:12px 0 0}.notice strong{color:#183452}.runbar{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-top:14px}.runstatus{font-size:13px;color:var(--muted)}.runstatus.error{color:var(--red)}.footer{margin-top:16px;color:var(--muted);font-size:12px}kbd{background:#eef2f5;border-radius:4px;padding:1px 5px}
+    @media(max-width:850px){.settings{grid-template-columns:1fr 1fr}.columns{grid-template-columns:1fr}.chatcard{min-height:350px}}
+    @media(max-width:550px){header{padding:20px 15px}main{padding:13px}.settings{grid-template-columns:1fr}.panel{padding:14px}.chathead{flex-direction:column;align-items:flex-start}}
+  </style>
+</head>
+<body>
+<header><div class="wrap"><h1>AI friction <span style="font-weight:400;opacity:.72">/ chatbot test lab</span></h1><p>Research pilot · Vanilla AI versus pre-advice friction · OpenRouter credentials are kept on the server</p></div></header>
+<main>
+  <section class="card panel" aria-labelledby="configtitle">
+    <div class="sectionhead"><h2 id="configtitle">1. Configure the comparison</h2><span class="pill">Private server settings</span></div>
+    <div class="settings">
+      <div class="control"><label>Configured OpenRouter model</label><p class="helper" id="modelDisplay">Loading server configuration...</p><p class="helper">Fixed on the server and identical for both conditions.</p></div>
+      <div class="control" id="accessGroup" hidden><label for="accessCode">Pilot access code</label><input type="password" id="accessCode" autocomplete="off" spellcheck="false" placeholder="Shared by the research team"><p class="helper">Protects the lab from unauthorised API usage. Not your OpenRouter key.</p></div>
+      <div class="control"><label for="temperature">Temperature <span id="tempLabel">0.2</span></label><input type="range" id="temperature" min="0" max="1" value="0.2" step="0.1"><p class="helper">Same setting for both.</p></div>
+    </div>
+    <details>
+      <summary>View or edit the friction system prompt</summary>
+      <div class="control"><label for="frictionPrompt">Friction arm only · no special instructions in vanilla arm</label><textarea id="frictionPrompt" rows="5">Before providing substantive advice for the first time, ask the user one brief, open-ended question inviting them to share their initial thoughts about the situation. Wait for their response, then continue assisting them naturally. Do not suggest any particular interpretation or coping strategy.</textarea></div>
+    </details>
+    <details>
+      <summary>View or edit the shared workplace scenario and initial request</summary>
+      <div class="control"><label for="scenario">Scenario sent identically to both arms</label><textarea id="scenario" rows="11">For the past several months, you have coordinated an important project at work and invested substantial time and effort in it. You expected to be seriously considered to lead an upcoming high-visibility project. Leading that project would bring greater responsibility and provide an important opportunity for professional development and recognition.
+
+Today, your manager tells you that they have concerns about the quality of parts of your analysis and the clarity with which you communicated the findings. Because of these concerns, your manager has submitted a recommendation that another employee lead the upcoming project. This is the first time you learn that you are not the currently recommended candidate.
+
+A follow-up meeting with your manager is scheduled for three days from now to hear your perspective. The recommendation cannot be revised for the current project assignment. The follow-up meeting will not change the employee named in the recommendation.</textarea></div>
+      <div class="control"><label for="request">Participant's first message</label><textarea id="request" rows="2">I am in this workplace situation. How should I respond?</textarea></div>
+    </details>
+    <div class="notice"><strong>Privacy:</strong> The OpenRouter key stays on the application server, not in this page. Chat text is relayed to OpenRouter and its selected model provider. This pilot does not store transcripts on the server. Exported transcripts stay on your device. Use fictional examples, not identifiable personal or patient data.</div>
+    <div class="runbar"><button type="button" class="primary" id="startBtn">Start new comparison</button><button type="button" id="exportBtn" disabled>Export transcript JSON</button><span class="runstatus" id="runStatus" role="status">Loading secure server configuration...</span></div>
+  </section>
+
+  <section style="margin-top:16px" aria-label="Chat comparisons">
+    <div class="columns">
+      <article class="card chatcard" aria-labelledby="vanTitle"><div class="chathead"><div><h3 id="vanTitle">Vanilla AI</h3><small>No system or developer instructions</small></div><span class="pill">Control AI</span></div><div class="chats" id="vanillaLog" aria-live="polite"><div class="empty">The first model response will appear here.</div></div><div class="composer"><label for="vanillaInput">Follow up with vanilla AI</label><textarea id="vanillaInput" rows="2" placeholder="Continue this conversation..."></textarea><div class="buttonrow"><button id="vanillaSend" disabled>Send to vanilla</button><span class="helper">Use <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to send</span></div></div><div class="statusline" id="vanillaStatus">Not started</div></article>
+      <article class="card chatcard" aria-labelledby="friTitle"><div class="chathead"><div><h3 id="friTitle">AI with friction</h3><small>Neutral articulation prompt before advice</small></div><span class="pill">Treatment AI</span></div><div class="chats" id="frictionLog" aria-live="polite"><div class="empty">The friction-enabled model response will appear here.</div></div><div class="composer"><label for="frictionInput">Follow up with friction AI</label><textarea id="frictionInput" rows="2" placeholder="Answer the question, or continue..."></textarea><div class="buttonrow"><button id="frictionSend" disabled>Send to friction AI</button><span class="helper">Use <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to send</span></div></div><div class="statusline" id="frictionStatus">Not started</div></article>
+    </div>
+  </section>
+  <p class="footer">Pilot test only · No randomisation, Qualtrics integration, participant data collection, or automated scoring. Vanilla AI may spontaneously ask questions; friction AI should ask a neutral pre-advice question. API usage is charged to your OpenRouter account according to the selected model.</p>
+</main>
+<script>
+(() => {
+  'use strict';
+  const API = '/api/chat';
+  const $ = id => document.getElementById(id);
+  const conditions = ['vanilla', 'friction'];
+  const state = {config:null,conversations:{vanilla:[],friction:[]},calls:[],busy:{vanilla:false,friction:false},startBusy:false,serverReady:false,serverModel:null,accessRequired:false};
+  function stamp(){return new Date().toISOString()}
+  function setRunStatus(msg, error=false){$('runStatus').textContent=msg;$('runStatus').classList.toggle('error',error)}
+  function setArmStatus(arm,msg,error=false){const el=$(arm+'Status');el.textContent=msg;el.classList.toggle('error',error)}
+  function render(arm){
+    const el=$(arm+'Log');el.replaceChildren();
+    if(!state.conversations[arm].length){const empty=document.createElement('div');empty.className='empty';empty.textContent='No messages yet.';el.append(empty);return}
+    for(const m of state.conversations[arm]){
+      const bubble=document.createElement('div');bubble.className='bubble '+(m.role==='assistant'?'assistant':'user');
+      const who=document.createElement('div');who.className='who';who.textContent=m.role==='assistant'?'AI':'Participant';
+      const content=document.createElement('div');content.textContent=m.content;
+      bubble.append(who,content);el.append(bubble);
+    }
+    el.scrollTop=el.scrollHeight;
+  }
+  function refresh(){
+    $('startBtn').disabled=!state.serverReady||state.startBusy||conditions.some(c=>state.busy[c]);
+    $('exportBtn').disabled=!state.config;
+    for(const c of conditions){$(c+'Send').disabled=!state.config||state.busy[c]||state.startBusy||state.conversations[c].at(-1)?.role!=='assistant'}
+  }
+  function apiMessages(arm,history){
+    const messages=[];
+    if(arm==='friction')messages.push({role:'system',content:state.config.frictionPrompt});
+    for(const m of history)messages.push({role:m.role,content:m.content});
+    return messages;
+  }
+  async function complete(arm,history){
+    const cfg=state.config;
+    const t=performance.now();
+    const payload={arm,messages:apiMessages(arm,history),temperature:cfg.temperature};
+    const headers={'Content-Type':'application/json'};
+    if(state.accessRequired)headers['X-Lab-Access-Code']=$('accessCode').value;
+    const response=await fetch(API,{method:'POST',mode:'same-origin',cache:'no-store',credentials:'same-origin',headers,body:JSON.stringify(payload)});
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok)throw Error('Chat request failed ('+response.status+'): '+String(data.detail||'Please try again.').slice(0,260));
+    const answer=data?.message;
+    if(typeof answer!=='string'||!answer.trim())throw Error('OpenRouter returned no readable assistant message.');
+    state.calls.push({timestamp:stamp(),arm,model:data.model||cfg.model,elapsed_seconds:Math.round((performance.now()-t)/10)/100,usage:data.usage||null,completion_id:data.id||null});
+    return answer.trim();
+  }
+  async function loadConfiguration(){
+    try{
+      const response=await fetch('/api/config',{cache:'no-store',credentials:'same-origin'});
+      if(!response.ok)throw Error('The application server is not ready.');
+      const cfg=await response.json();
+      state.serverModel=cfg.model;
+      state.accessRequired=!!cfg.access_code_required;
+      state.serverReady=!!cfg.ready;
+      $('modelDisplay').textContent=cfg.model||'Not configured';
+      $('accessGroup').hidden=!state.accessRequired;
+      setRunStatus(state.serverReady?'Ready. Start a comparison.':'The server owner must configure the OpenRouter API key and pilot access code.',!state.serverReady);
+    }catch(e){state.serverReady=false;setRunStatus('Cannot reach the private chatbot server: '+String(e.message||e),true)}
+    refresh();
+  }
+  async function start(){
+    if(state.startBusy||conditions.some(c=>state.busy[c]))return;
+    const model=state.serverModel,prompt=$('frictionPrompt').value.trim(),scenario=$('scenario').value.trim(),request=$('request').value.trim();
+    if(!state.serverReady){setRunStatus('Server configuration is not ready.',true);return}
+    if(!model||!prompt||!scenario||!request){setRunStatus('Model, friction prompt, scenario and participant message are required.',true);return}
+    state.config={started_at:stamp(),model,temperature:Number($('temperature').value),frictionPrompt:prompt,scenario,initialRequest:request};
+    state.calls=[];const first='Imagine the following workplace situation applies to me:\n\n'+scenario+'\n\n'+request;
+    for(const c of conditions){state.conversations[c]=[{role:'user',content:first}];state.busy[c]=true;render(c);setArmStatus(c,'Generating a response…')}
+    state.startBusy=true;refresh();setRunStatus('Comparing first responses…');
+    await Promise.all(conditions.map(async c=>{
+      try{const ans=await complete(c,state.conversations[c]);state.conversations[c].push({role:'assistant',content:ans});setArmStatus(c,'Response received.')}
+      catch(e){setArmStatus(c,String(e.message||e),true)}finally{state.busy[c]=false;render(c);refresh()}
+    }));
+    state.startBusy=false;refresh();setRunStatus('Review both conversations. If a request failed, check the settings and start again.');
+  }
+  async function followup(arm){
+    if(state.startBusy||state.busy[arm]||!state.config)return;
+    const value=$(arm+'Input').value.trim(),prev=state.conversations[arm];
+    if(!value||prev.at(-1)?.role!=='assistant')return;
+    state.busy[arm]=true;refresh();setArmStatus(arm,'Generating a response…');
+    const history=[...prev,{role:'user',content:value}];
+    try{
+      const ans=await complete(arm,history);
+      state.conversations[arm]=[...history,{role:'assistant',content:ans}];$(arm+'Input').value='';
+      setArmStatus(arm,'Response received.');render(arm);
+    }catch(e){setArmStatus(arm,String(e.message||e),true)}finally{state.busy[arm]=false;refresh()}
+  }
+  function exportTranscript(){
+    if(!state.config)return;
+    const record={exported_at:stamp(),app_version:'3.0-openrouter-private-server',note:'Vanilla: no system/developer instructions. Friction: one editable system prompt. Same initial user message in both conditions.',config:state.config,vanilla_conversation:state.conversations.vanilla,friction_conversation:state.conversations.friction,api_calls:state.calls};
+    const blob=new Blob([JSON.stringify(record,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download='ai_friction_comparison_'+new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')+'.json';document.body.append(a);a.click();a.remove();URL.revokeObjectURL(url);
+  }
+  $('temperature').addEventListener('input',()=>{$('tempLabel').textContent=$('temperature').value});
+  $('startBtn').addEventListener('click',start);
+  $('exportBtn').addEventListener('click',exportTranscript);
+  for(const c of conditions){$(c+'Send').addEventListener('click',()=>followup(c));$(c+'Input').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();followup(c)}})}
+  refresh();
+  loadConfiguration();
+  // Expose harmless functions only to the local test harness. Never expose credentials.
+  if(location.hostname==='localhost'||location.hostname==='127.0.0.1')window.__chatbotTest={apiMessages,conditions,state};
+})();
+</script>
+</body>
+</html>
